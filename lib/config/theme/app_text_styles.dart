@@ -1,10 +1,13 @@
-import 'package:material_ui/material_ui.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:material_ui/material_ui.dart';
 
 /// App Text Styles - Centralized typography definitions
 class AppTextStyles {
   // Private constructor to prevent instantiation
   AppTextStyles._();
+
+  static const String poppins = 'Poppins';
+  static const String roboto = 'Roboto';
 
   static TextStyle _style(double size, FontWeight weight) =>
       TextStyle(fontSize: size.sp, fontWeight: weight);

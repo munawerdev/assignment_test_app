@@ -47,14 +47,4 @@ abstract class NetworkBaseApiService {
     Map<String, String>? headers,
     CancelToken? cancelToken,
   });
-
-  Future<Either<NetworkFailure, T>> upload<T>({
-    required String url,
-    required String filePath,
-    required String fileName,
-    Map<String, dynamic>? data,
-    Map<String, String>? headers,
-    ProgressCallback? onSendProgress,
-    CancelToken? cancelToken,
-  });
 }

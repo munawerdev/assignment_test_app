@@ -1,7 +1,6 @@
 import 'package:dio/dio.dart';
 import 'package:fpdart/fpdart.dart';
 
-import '/data/datasources/user/user_data_sources.dart';
 import '/data/repositories/network/errors/api_error_handler.dart';
 import '/domain/failures/network/network_failure.dart';
 import '/domain/repositories/local/local_storage_base_api_service.dart';
@@ -9,20 +8,12 @@ import '/domain/repositories/network/network_base_api_service.dart';
 import 'dio_config.dart';
 
 class DioNetworkRepository implements NetworkBaseApiService {
-  final UserDataSources _userDataSources;
   final LocalStorageBaseApiService _localStorageRepository;
   final ApiErrorHandler _apiErrorHandler;
   late final Dio _dio;
 
-  DioNetworkRepository(
-    this._userDataSources,
-    this._localStorageRepository,
-    this._apiErrorHandler,
-  ) {
-    _dio = DioConfig.createDio(
-      userDataSources: _userDataSources,
-      localStorageRepository: _localStorageRepository,
-    );
+  DioNetworkRepository(this._localStorageRepository, this._apiErrorHandler) {
+    _dio = DioConfig.createDio(localStorageRepository: _localStorageRepository);
   }
 
   @override
@@ -140,41 +131,6 @@ class DioNetworkRepository implements NetworkBaseApiService {
     );
   }
 
-  @override
-  Future<Either<NetworkFailure, T>> upload<T>({
-    required String url,
-    required String filePath,
-    required String fileName,
-    Map<String, dynamic>? data,
-    Map<String, String>? headers,
-    ProgressCallback? onSendProgress,
-    CancelToken? cancelToken,
-  }) async {
-    try {
-      final formData = FormData.fromMap({
-        'file': await MultipartFile.fromFile(filePath, filename: fileName),
-        if (data != null) ...data,
-      });
-
-      return _executeRequest<T>(
-        () => _dio.post(
-          url,
-          data: formData,
-          cancelToken: cancelToken,
-          onSendProgress: onSendProgress,
-          options: Options(headers: headers),
-        ),
-      );
-    } catch (e) {
-      return left(
-        NetworkFailure(
-          error: 'File upload preparation failed: $e',
-          type: NetworkFailureType.unknown,
-        ),
-      );
-    }
-  }
-
   /// Common method to execute requests and handle errors
   Future<Either<NetworkFailure, T>> _executeRequest<T>(
     Future<Response> Function() request,
@@ -185,12 +141,7 @@ class DioNetworkRepository implements NetworkBaseApiService {
     } on DioException catch (e) {
       return left(_apiErrorHandler.handleDioError(e));
     } catch (e) {
-      return left(
-        NetworkFailure(
-          error: 'Unexpected error: $e',
-          type: NetworkFailureType.unknown,
-        ),
-      );
+      return left(NetworkFailure(error: 'Unexpected error: $e'));
     }
   }
 }

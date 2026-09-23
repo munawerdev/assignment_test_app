@@ -1,6 +1,6 @@
-import 'package:material_ui/material_ui.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:material_ui/material_ui.dart';
 
 import 'app_colors.dart';
 import 'app_text_styles.dart';
@@ -9,6 +9,7 @@ import 'app_text_styles.dart';
 ThemeData get lightTheme => ThemeData(
   useMaterial3: true,
   brightness: Brightness.light,
+  fontFamily: AppTextStyles.poppins,
   colorScheme: AppColors.lightColorScheme,
   textTheme: AppTextStyles.textTheme,
   primaryTextTheme: AppTextStyles.textTheme,
@@ -26,7 +27,7 @@ ThemeData get lightTheme => ThemeData(
     leadingWidth: 80.w,
     titleSpacing: 0,
     titleTextStyle: AppTextStyles.titleLarge.copyWith(
-      fontWeight: FontWeight.w600,
+      // fontWeight: AppTextStyles.,
       color: AppColors.lightColorScheme.onSurface,
     ),
     iconTheme: IconThemeData(
@@ -62,7 +63,9 @@ ThemeData get lightTheme => ThemeData(
       minimumSize: Size(double.infinity.w, 48.h),
       padding: EdgeInsets.symmetric(horizontal: 24.w, vertical: 12.h),
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8.r)),
-      textStyle: AppTextStyles.labelLarge.copyWith(fontWeight: FontWeight.w600),
+      textStyle: AppTextStyles.labelLarge.copyWith(
+        // fontWeight: AppTextStyles.semiBold,
+      ),
       animationDuration: const Duration(milliseconds: 200),
     ),
   ),
@@ -80,7 +83,9 @@ ThemeData get lightTheme => ThemeData(
       minimumSize: Size(double.infinity.w, 48.h),
       padding: EdgeInsets.symmetric(horizontal: 24.w, vertical: 12.h),
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8.r)),
-      textStyle: AppTextStyles.labelLarge.copyWith(fontWeight: FontWeight.w600),
+      textStyle: AppTextStyles.labelLarge.copyWith(
+        // fontWeight: AppTextStyles.semiBold,
+      ),
       animationDuration: const Duration(milliseconds: 200),
     ),
   ),
@@ -94,7 +99,9 @@ ThemeData get lightTheme => ThemeData(
       ),
       padding: EdgeInsets.symmetric(horizontal: 22.w, vertical: 8.h),
       minimumSize: Size(0, 48.h),
-      textStyle: AppTextStyles.labelLarge.copyWith(fontWeight: FontWeight.w600),
+      textStyle: AppTextStyles.labelLarge.copyWith(
+        // fontWeight: AppTextStyles.semiBold,
+      ),
       animationDuration: const Duration(milliseconds: 200),
     ),
   ),
@@ -180,19 +187,11 @@ ThemeData get lightTheme => ThemeData(
   ),
 
   // Bottom Navigation Bar Theme
-  bottomNavigationBarTheme: BottomNavigationBarThemeData(
+  bottomNavigationBarTheme: const BottomNavigationBarThemeData(
     type: BottomNavigationBarType.fixed,
     elevation: 8,
   ),
 
   // Divider Theme
   dividerTheme: DividerThemeData(thickness: 1.w, space: 1.h),
-);
-
-ThemeData get darkTheme => ThemeData(
-  useMaterial3: true,
-  brightness: Brightness.dark,
-  colorScheme: AppColors.darkColorScheme,
-  textTheme: AppTextStyles.textTheme,
-  primaryTextTheme: AppTextStyles.textTheme,
 );

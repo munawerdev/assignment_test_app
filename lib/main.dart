@@ -1,21 +1,16 @@
-import 'package:device_preview/device_preview.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:assignment_test_app/features/bottom_nav/bottom_nav_initial_params.dart';
+import 'package:assignment_test_app/features/bottom_nav/bottom_nav_page.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:material_ui/material_ui.dart';
 
 import '/config/theme/theme_data.dart';
 import '/core/constants/global.dart';
 import '/core/show/checker_navigator_observer.dart';
-import '/data/datasources/theme/theme_data_source.dart';
-import '/features/splash/splash_initial_params.dart';
-import '/features/splash/splash_page.dart';
 import '/injection_container.dart' as di;
 import '/injection_container.dart';
 
 Future<void> main() async {
-  WidgetsFlutterBinding.ensureInitialized();
   await di.init();
-  DevicePreview.enable();
   runApp(const MyApp());
 }
 
@@ -24,24 +19,16 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) => ScreenUtilInit(
-    designSize: const Size(430, 932),
+    designSize: const Size(375, 812),
     minTextAdapt: true,
     splitScreenMode: true,
-    builder: (_, child) => BlocBuilder(
-      bloc: getIt<ThemeDataSources>(),
-      builder: (context, state) {
-        state as bool;
-        return MaterialApp(
-          // locale: DevicePreview.locale(context),
-          // builder: DevicePreview.appBuilder,
-          navigatorKey: GlobalConstants.navigatorKey,
-          scaffoldMessengerKey: GlobalConstants.scaffoldMessengerKey,
-          navigatorObservers: [CheckerNavigatorObserver()],
-          debugShowCheckedModeBanner: false,
-          theme: state ? darkTheme : lightTheme,
-          home: SplashPage(cubit: getIt(param1: const SplashInitialParams())),
-        );
-      },
+    builder: (_, child) => MaterialApp(
+      navigatorKey: GlobalConstants.navigatorKey,
+      scaffoldMessengerKey: GlobalConstants.scaffoldMessengerKey,
+      navigatorObservers: [CheckerNavigatorObserver()],
+      debugShowCheckedModeBanner: false,
+      theme: lightTheme,
+      home: BottomNavPage(cubit: getIt(param1: const BottomNavInitialParams())),
     ),
   );
 }
