@@ -1,4 +1,4 @@
-import 'package:flutter/material.dart';
+import 'package:material_ui/material_ui.dart';
 import 'bottom_nav_initial_params.dart';
 import 'bottom_nav_page.dart';
 import '/config/navigation/app_navigator.dart';

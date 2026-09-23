@@ -1,7 +1,7 @@
-import 'package:flutter/material.dart';
+import 'package:device_preview/device_preview.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:material_ui/material_ui.dart';
 
 import '/config/theme/theme_data.dart';
 import '/core/constants/global.dart';
@@ -13,18 +13,10 @@ import '/injection_container.dart' as di;
 import '/injection_container.dart';
 
 Future<void> main() async {
-  //  setCustomSystemUIOverlayStyle();
   WidgetsFlutterBinding.ensureInitialized();
-  await dotenv.load();
   await di.init();
-  runApp(
-    // DevicePreview(
-    //   enabled: false,
-    //   builder: (context) {
-    //   },
-    // ),
-    const MyApp(),
-  );
+  DevicePreview.enable();
+  runApp(const MyApp());
 }
 
 class MyApp extends StatelessWidget {
@@ -40,7 +32,6 @@ class MyApp extends StatelessWidget {
       builder: (context, state) {
         state as bool;
         return MaterialApp(
-          // useInheritedMediaQuery: true,
           // locale: DevicePreview.locale(context),
           // builder: DevicePreview.appBuilder,
           navigatorKey: GlobalConstants.navigatorKey,
@@ -48,8 +39,6 @@ class MyApp extends StatelessWidget {
           navigatorObservers: [CheckerNavigatorObserver()],
           debugShowCheckedModeBanner: false,
           theme: state ? darkTheme : lightTheme,
-          // scaffoldMessengerKey: scaffoldMessengerKey,
-          // home: HomePage(cubit: getIt(param1: const HomeInitialParams()))
           home: SplashPage(cubit: getIt(param1: const SplashInitialParams())),
         );
       },
