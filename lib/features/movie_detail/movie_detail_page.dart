@@ -4,6 +4,7 @@ import 'package:assignment_test_app/core/utils/extensions.dart';
 import 'package:assignment_test_app/core/widgets/app_button.dart';
 import 'package:assignment_test_app/core/widgets/cached_network_image_widget.dart';
 import 'package:assignment_test_app/data/models/movie_detail_model.dart';
+import 'package:assignment_test_app/features/movie_detail/movie_detail_shimmer.dart';
 import 'package:assignment_test_app/features/movie_detail/movie_detail_state.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -41,6 +42,7 @@ class _MovieDetailState extends State<MovieDetailPage> {
       builder: (context, state) {
         state as MovieDetailState;
         return state.response.toWidget(
+          onLoading: (context) => const MovieDetailShimmer(),
           onCompleted: (_, movie) => RefreshIndicator.adaptive(
             onRefresh: cubit.movieDetail,
             child: _MovieDetailContent(movie: movie),
@@ -105,8 +107,10 @@ class _MovieDetailContent extends StatelessWidget {
                 movie.overview?.trim().isNotEmpty == true
                     ? movie.overview!
                     : 'No overview is available for this movie.',
+
                 style: context.textTheme.bodySmall?.copyWith(
                   color: const Color(0xff8F8F8F),
+                  height: 1.6,
                 ),
               ),
             ],
