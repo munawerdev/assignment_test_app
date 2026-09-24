@@ -1,4 +1,7 @@
 /*
+************************ MovieDetail ************************
+*/
+/*
 ************************ Dashboard ************************
 */
 /*
@@ -37,6 +40,9 @@ import 'features/media_library/media_library_navigator.dart';
 import 'features/more/more_cubit.dart';
 import 'features/more/more_initial_params.dart';
 import 'features/more/more_navigator.dart';
+import 'features/movie_detail/movie_detail_cubit.dart';
+import 'features/movie_detail/movie_detail_initial_params.dart';
+import 'features/movie_detail/movie_detail_navigator.dart';
 /*
 ************************ Watch ************************
 */
@@ -103,4 +109,13 @@ Future<void> init() async {
   getIt.registerFactoryParam<DashboardCubit, DashboardInitialParams, dynamic>(
     (params, _) => DashboardCubit(params, getIt()),
   );
+  /*
+************************ MovieDetail ************************
+*/
+  getIt.registerSingleton<MovieDetailNavigator>(MovieDetailNavigator(getIt()));
+  getIt.registerFactoryParam<
+    MovieDetailCubit,
+    MovieDetailInitialParams,
+    dynamic
+  >((params, _) => MovieDetailCubit(params, getIt(), getIt())..movieDetail());
 }

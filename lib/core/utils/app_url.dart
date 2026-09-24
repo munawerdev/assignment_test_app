@@ -7,7 +7,7 @@ abstract class AppUrl {
   // watch
   static String get watch => '$_baseUrl/upcoming';
 
-  // media_library
-  static String get mediaLibrary => '$_baseUrl/media_library';
+  // movie_detail
+  static String movieDetail(String movieId) => '$_baseUrl/$movieId';
 }
 // static String endpoint(String userId) => '$_baseUrl/$path';

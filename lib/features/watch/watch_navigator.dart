@@ -1,11 +1,12 @@
+import 'package:assignment_test_app/features/movie_detail/movie_detail_navigator.dart';
 import 'package:material_ui/material_ui.dart';
 
-import 'watch_initial_params.dart';
-import 'watch_page.dart';
 import '/config/navigation/app_navigator.dart';
 import '/injection_container.dart';
+import 'watch_initial_params.dart';
+import 'watch_page.dart';
 
-class WatchNavigator {
+class WatchNavigator with MovieDetailRoute {
   WatchNavigator(this.navigator);
   @override
   late BuildContext context;

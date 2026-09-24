@@ -1,6 +1,5 @@
 import 'package:assignment_test_app/core/constants/status_switcher.dart';
 import 'package:assignment_test_app/core/utils/extensions.dart';
-import 'package:assignment_test_app/core/widgets/paginated_list_view.dart';
 import 'package:assignment_test_app/features/watch/watch_state.dart';
 import 'package:assignment_test_app/features/watch/widget/movie_card.dart';
 import 'package:assignment_test_app/features/watch/widget/movie_card_shimmer.dart';
@@ -87,35 +86,28 @@ class _WatchState extends State<WatchPage> {
                 builder: (context, state) {
                   state as WatchState;
                   return state.response.toWidget(
-                    onRetry: () => cubit.watch,
+                    onRetry: () => cubit.watch(),
                     onLoading: (context) => const MovieCardShimmer(),
-                    onCompleted: (context, data) =>
-                        // ListView.separated(
-                        //   shrinkWrap: true,
-                        //   physics: const NeverScrollableScrollPhysics(),
-                        //   padding: EdgeInsets.symmetric(horizontal: 20.w),
-                        //   itemCount: data.results?.length ?? 0,
-                        //   itemBuilder: (context, index) => MovieCard(
-                        //     result: data.results![index],
-                        //     context: context,
-                        //   ),
-                        //   separatorBuilder: (context, index) => 20.verticalSpace,
-                        // ),
-                        PaginatedListView(
-                          shrinkWrap: true,
-                          physics: const NeverScrollableScrollPhysics(),
-                          padding: EdgeInsets.symmetric(horizontal: 20.w),
-                          items: data.results!,
-                          onRefresh:  cubit.watch,
-                          itemBuilder: (context, result, index) =>
-                              MovieCard(result: result, context: context),
-                          isLoadingMore: state.isLoadingMore,
-                          onLoadMore:  cubit.loadMore,
-                        ),
+                    onCompleted: (context, data) => ListView.separated(
+                      shrinkWrap: true,
+                      physics: const NeverScrollableScrollPhysics(),
+                      padding: EdgeInsets.symmetric(horizontal: 20.w),
+                      itemCount: data.results?.length ?? 0,
+                      itemBuilder: (context, index) {
+                        final result = data.results![index];
+                        return GestureDetector(
+                          behavior: HitTestBehavior.opaque,
+                          onTap: () => cubit.goMovieDetailPage(result: result),
+                          child: MovieCard(result: result, context: context),
+                        );
+                      },
+                      separatorBuilder: (context, index) => 20.verticalSpace,
+                    ),
                   );
                 },
               ),
             ),
+
             SliverToBoxAdapter(child: 30.verticalSpace),
           ],
         ),

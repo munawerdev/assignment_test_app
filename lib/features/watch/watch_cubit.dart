@@ -1,5 +1,5 @@
 import 'package:assignment_test_app/core/constants/global.dart';
-import 'package:assignment_test_app/core/services/pagination_cubit.dart';
+import 'package:assignment_test_app/features/movie_detail/movie_detail_initial_params.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '/config/response/api_response.dart';
@@ -10,7 +10,7 @@ import 'watch_initial_params.dart';
 import 'watch_navigator.dart';
 import 'watch_state.dart';
 
-class WatchCubit extends Cubit<WatchState> with PaginationMixin {
+class WatchCubit extends Cubit<WatchState> {
   final NetworkBaseApiService networkRepository;
   final WatchNavigator navigator;
   final WatchInitialParams initialParams;
@@ -22,7 +22,7 @@ class WatchCubit extends Cubit<WatchState> with PaginationMixin {
 
     final watch = await networkRepository.get<Map<String, dynamic>>(
       url: AppUrl.watch,
-      queryParams: {'api_key': GlobalConstants.apiKey, 'page': 1},
+      queryParams: {'api_key': GlobalConstants.apiKey},
     );
     watch.fold(
       (l) => emit(state.copyWith(response: ApiResponse.error(l))),
@@ -32,23 +32,6 @@ class WatchCubit extends Cubit<WatchState> with PaginationMixin {
     );
   }
 
-  Future<void> loadMore() async {
-    await loadMoreData<WatchModel>(
-      limit: GlobalConstants.defaultPageLimit,
-      fetchData: (page, limit) async {
-        final result = await networkRepository.get<Map<String, dynamic>>(
-          url: AppUrl.watch,
-          queryParams: {'api_key': GlobalConstants.apiKey, 'page': page},
-        );
-        return result.fold(
-          ApiResponse.error,
-          (r) => ApiResponse.completed(WatchModel.fromJson(r)),
-        );
-      },
-      mergeData: (current, newData) =>
-          current.copyWith(results: [...?current.results, ...?newData.results]),
-      getCurrentCount: (data) => data.results!.length,
-      getTotalCount: (data) => data.totalResults ?? 0,
-    );
-  }
+  void goMovieDetailPage({required Result result}) =>
+      navigator.openMovieDetail(MovieDetailInitialParams(result: result));
 }

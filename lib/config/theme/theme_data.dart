@@ -54,20 +54,18 @@ ThemeData get lightTheme => ThemeData(
   elevatedButtonTheme: ElevatedButtonThemeData(
     style: ElevatedButton.styleFrom(
       elevation: 0,
-      backgroundColor: AppColors.lightColorScheme.primary,
-      foregroundColor: AppColors.lightColorScheme.onPrimary,
+      backgroundColor: const Color(0xff61C3F2),
+      foregroundColor: Colors.white,
       disabledBackgroundColor: AppColors.lightColorScheme.onSurface.withValues(
         alpha: 0.12,
       ),
       disabledForegroundColor: AppColors.lightColorScheme.onSurface.withValues(
         alpha: 0.38,
       ),
-      minimumSize: Size(double.infinity.w, 48.h),
+      minimumSize: Size(double.infinity.w, 50.h),
       padding: EdgeInsets.symmetric(horizontal: 24.w, vertical: 12.h),
-      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8.r)),
-      textStyle: AppTextStyles.labelLarge.copyWith(
-        // fontWeight: AppTextStyles.semiBold,
-      ),
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10.r)),
+      textStyle: AppTextStyles.titleSmall.copyWith(fontWeight: FontWeight.w600),
       animationDuration: const Duration(milliseconds: 200),
     ),
   ),
@@ -76,18 +74,17 @@ ThemeData get lightTheme => ThemeData(
   outlinedButtonTheme: OutlinedButtonThemeData(
     style: OutlinedButton.styleFrom(
       backgroundColor: Colors.transparent,
-      foregroundColor: AppColors.lightColorScheme.primary,
+      foregroundColor: Colors.white,
       disabledForegroundColor: AppColors.lightColorScheme.onSurface.withValues(
         alpha: 0.38,
       ),
-      side: BorderSide(color: AppColors.lightColorScheme.primary, width: 1.w),
+      side: BorderSide(color: const Color(0xff61C3F2), width: 1.w),
       disabledBackgroundColor: Colors.transparent,
-      minimumSize: Size(double.infinity.w, 48.h),
+      minimumSize: Size(double.infinity.w, 50.h),
       padding: EdgeInsets.symmetric(horizontal: 24.w, vertical: 12.h),
-      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8.r)),
-      textStyle: AppTextStyles.labelLarge.copyWith(
-        // fontWeight: AppTextStyles.semiBold,
-      ),
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10.r)),
+      textStyle: AppTextStyles.titleSmall.copyWith(fontWeight: FontWeight.w600),
+
       animationDuration: const Duration(milliseconds: 200),
     ),
   ),
