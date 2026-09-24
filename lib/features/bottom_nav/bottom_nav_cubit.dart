@@ -1,6 +1,6 @@
 import 'package:assignment_test_app/core/utils/app_images.dart';
-import 'package:assignment_test_app/features/home/home_initial_params.dart';
-import 'package:assignment_test_app/features/home/home_page.dart';
+import 'package:assignment_test_app/features/dashboard/dashboard_initial_params.dart';
+import 'package:assignment_test_app/features/dashboard/dashboard_page.dart';
 import 'package:assignment_test_app/features/media_library/media_library_initial_params.dart';
 import 'package:assignment_test_app/features/media_library/media_library_page.dart';
 import 'package:assignment_test_app/features/more/more_initial_params.dart';
@@ -40,7 +40,7 @@ class BottomNavCubit extends Cubit<BottomNavState> {
   ];
 
   final List<Widget> pages = <Widget>[
-    HomePage(cubit: getIt(param1: const HomeInitialParams())),
+    DashboardPage(cubit: getIt(param1: const DashboardInitialParams())),
     WatchPage(cubit: getIt(param1: const WatchInitialParams())),
     MediaLibraryPage(cubit: getIt(param1: const MediaLibraryInitialParams())),
     MorePage(cubit: getIt(param1: const MoreInitialParams())),

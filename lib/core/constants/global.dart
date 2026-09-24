@@ -5,4 +5,6 @@ abstract class GlobalConstants {
       GlobalKey<NavigatorState>();
   static final GlobalKey<ScaffoldMessengerState> scaffoldMessengerKey =
       GlobalKey<ScaffoldMessengerState>();
+
+  static const apiKey = 'bc4e89a752a12eda8c4370f5d64ad31d';
 }

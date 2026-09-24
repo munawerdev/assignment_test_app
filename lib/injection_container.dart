@@ -1,4 +1,7 @@
 /*
+************************ Dashboard ************************
+*/
+/*
 ************************ More ************************
 */
 import 'package:assignment_test_app/data/repositories/local/local_storage_repository.dart';
@@ -22,12 +25,9 @@ import 'domain/usecases/user/user_use_cases.dart';
 import 'features/bottom_nav/bottom_nav_cubit.dart';
 import 'features/bottom_nav/bottom_nav_initial_params.dart';
 import 'features/bottom_nav/bottom_nav_navigator.dart';
-import 'features/home/home_cubit.dart';
-import 'features/home/home_initial_params.dart';
-/*
-************************ Home ************************
-*/
-import 'features/home/home_navigator.dart';
+import 'features/dashboard/dashboard_cubit.dart';
+import 'features/dashboard/dashboard_initial_params.dart';
+import 'features/dashboard/dashboard_navigator.dart';
 /*
 ************************ MediaLibrary ************************
 */
@@ -68,13 +68,7 @@ Future<void> init() async {
   getIt.registerFactoryParam<BottomNavCubit, BottomNavInitialParams, dynamic>(
     (params, _) => BottomNavCubit(params, getIt()),
   );
-  /*
-************************ Home ************************
-*/
-  getIt.registerSingleton<HomeNavigator>(HomeNavigator(getIt()));
-  getIt.registerFactoryParam<HomeCubit, HomeInitialParams, dynamic>(
-    (params, _) => HomeCubit(params, getIt(), getIt())..home(),
-  );
+
   /*
 ************************ Watch ************************
 */
@@ -101,5 +95,12 @@ Future<void> init() async {
   getIt.registerSingleton<MoreNavigator>(MoreNavigator(getIt()));
   getIt.registerFactoryParam<MoreCubit, MoreInitialParams, dynamic>(
     (params, _) => MoreCubit(params, getIt()),
+  );
+  /*
+************************ Dashboard ************************
+*/
+  getIt.registerSingleton<DashboardNavigator>(DashboardNavigator(getIt()));
+  getIt.registerFactoryParam<DashboardCubit, DashboardInitialParams, dynamic>(
+    (params, _) => DashboardCubit(params, getIt()),
   );
 }

@@ -24,7 +24,8 @@ ThemeData get lightTheme => ThemeData(
     foregroundColor: AppColors.lightColorScheme.onSurface,
     surfaceTintColor: Colors.transparent,
     shadowColor: AppColors.lightColorScheme.shadow,
-    toolbarHeight: 56.h,
+    toolbarHeight: 64.h,
+    // toolbarHeight: 56.h,
     leadingWidth: 80.w,
     titleSpacing: 0,
     titleTextStyle: AppTextStyles.titleLarge.copyWith(
