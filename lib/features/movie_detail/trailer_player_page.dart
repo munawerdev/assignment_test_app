@@ -31,7 +31,9 @@ class _TrailerPlayerPageState extends State<TrailerPlayerPage> {
   @override
   void dispose() {
     _controller.dispose();
-    SystemChrome.setPreferredOrientations(const [DeviceOrientation.portraitUp]);
+    // Return control to the app's supported orientations. Forcing portrait here
+    // can be rejected by iOS while the landscape-only player controller closes.
+    SystemChrome.setPreferredOrientations(const []);
     SystemChrome.setEnabledSystemUIMode(SystemUiMode.edgeToEdge);
     super.dispose();
   }

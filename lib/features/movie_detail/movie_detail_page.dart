@@ -66,74 +66,123 @@ class _MovieDetailContent extends StatelessWidget {
   final VoidCallback onWatchTrailer;
 
   @override
-  Widget build(BuildContext context) => CustomScrollView(
-    physics: const AlwaysScrollableScrollPhysics(
-      parent: BouncingScrollPhysics(),
-    ),
-    slivers: [
-      SliverToBoxAdapter(
-        child: _Hero(movie: movie, onWatchTrailer: onWatchTrailer),
-      ),
-      SliverToBoxAdapter(
-        child: Padding(
-          padding: EdgeInsets.fromLTRB(40.w, 27.h, 40.w, 57.h),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Text(
-                'Genres',
-                style: context.textTheme.titleMedium!.copyWith(
-                  color: const Color(0xff202C43),
-                ),
-              ),
-              14.verticalSpace,
-              Wrap(
-                spacing: 5.w,
-                runSpacing: 5.h,
-                children: movie.genres
-                    .asMap()
-                    .entries
-                    .map(
-                      (entry) => _GenreChip(
-                        label: entry.value.name ?? '',
-                        color: _genreColors[entry.key % _genreColors.length],
-                      ),
-                    )
-                    .toList(),
-              ),
-              Padding(
-                padding: EdgeInsets.only(top: 22.h, bottom: 15.h),
-                child: Divider(color: const Color(0xffE8E7EC), height: 1.h),
-              ),
-              Text(
-                'Overview',
-                style: context.textTheme.titleMedium!.copyWith(
-                  color: const Color(0xff202C43),
-                ),
-              ),
-              14.verticalSpace,
-              Text(
-                movie.overview?.trim().isNotEmpty == true
-                    ? movie.overview!
-                    : 'No overview is available for this movie.',
-
-                style: context.textTheme.bodySmall?.copyWith(
-                  color: const Color(0xff8F8F8F),
-                  height: 1.6,
-                ),
-              ),
-            ],
+  Widget build(BuildContext context) {
+    final landscape = MediaQuery.orientationOf(context) == Orientation.landscape;
+    if (landscape) {
+      return Row(
+        crossAxisAlignment: CrossAxisAlignment.stretch,
+        children: [
+          Expanded(
+            child: _Hero(
+              movie: movie,
+              onWatchTrailer: onWatchTrailer,
+              landscape: true,
+            ),
           ),
-        ),
+          Expanded(child: _Details(movie: movie, scrollable: true, landscape: true)),
+        ],
+      );
+    }
+    return CustomScrollView(
+      physics: const AlwaysScrollableScrollPhysics(parent: BouncingScrollPhysics()),
+      slivers: [
+        SliverToBoxAdapter(child: _Hero(movie: movie, onWatchTrailer: onWatchTrailer)),
+        SliverToBoxAdapter(child: _Details(movie: movie)),
+      ],
+    );
+  }
+}
+
+class _Details extends StatelessWidget {
+  const _Details({
+    required this.movie,
+    this.scrollable = false,
+    this.landscape = false,
+  });
+  final MovieDetailModel movie;
+  final bool scrollable;
+  final bool landscape;
+
+  @override
+  Widget build(BuildContext context) {
+    final details = Padding(
+      padding: EdgeInsets.fromLTRB(24.w, 27.h, 24.w, 57.h),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Text(
+            'Genres',
+            style: context.textTheme.titleMedium!.copyWith(
+              color: const Color(0xff202C43),
+              fontSize: landscape ? 16 : null,
+            ),
+          ),
+          14.verticalSpace,
+          Wrap(
+            spacing: 5.w,
+            runSpacing: 5.h,
+            children: movie.genres
+                .asMap()
+                .entries
+                .map(
+                  (entry) => _GenreChip(
+                    label: entry.value.name ?? '',
+                    color: _genreColors[entry.key % _genreColors.length],
+                    compact: landscape,
+                  ),
+                )
+                .toList(),
+          ),
+          Padding(
+            padding: EdgeInsets.only(top: 22.h, bottom: 15.h),
+            child: Divider(color: const Color(0xffE8E7EC), height: 1.h),
+          ),
+          Text(
+            'Overview',
+            style: context.textTheme.titleMedium!.copyWith(
+              color: const Color(0xff202C43),
+              fontSize: landscape ? 16 : null,
+            ),
+          ),
+          14.verticalSpace,
+          Text(
+            movie.overview?.trim().isNotEmpty == true
+                ? movie.overview!
+                : 'No overview is available for this movie.',
+            style: context.textTheme.bodySmall?.copyWith(
+              color: const Color(0xff8F8F8F),
+              height: 1.6,
+              fontSize: landscape ? 13 : null,
+            ),
+          ),
+        ],
       ),
-    ],
-  );
+    );
+    if (!scrollable) {
+      return Padding(
+        padding: EdgeInsets.symmetric(horizontal: 16.w),
+        child: details,
+      );
+    }
+    return Container(
+      color: Colors.white,
+      child: SingleChildScrollView(
+        physics: const AlwaysScrollableScrollPhysics(parent: BouncingScrollPhysics()),
+        child: details,
+      ),
+    );
+  }
 }
 
 class _Hero extends StatelessWidget {
-  const _Hero({required this.movie, required this.onWatchTrailer});
+  const _Hero({
+    required this.movie,
+    required this.onWatchTrailer,
+    this.landscape = false,
+  });
   final MovieDetailModel movie;
   final VoidCallback onWatchTrailer;
+  final bool landscape;
 
   @override
   Widget build(BuildContext context) {
@@ -141,7 +190,7 @@ class _Hero extends StatelessWidget {
         ? null
         : _formatDate(movie.releaseDate!);
     return SizedBox(
-      height: 466.h,
+      height: landscape ? null : 466.h,
       child: Stack(
         fit: StackFit.expand,
         children: [
@@ -183,14 +232,15 @@ class _Hero extends StatelessWidget {
                 'Watch',
                 style: context.textTheme.titleMedium?.copyWith(
                   color: Colors.white,
+                  fontSize: landscape ? 16 : null,
                 ),
               ),
             ),
           ),
           Positioned(
-            left: 66.w,
-            right: 66.w,
-            bottom: 34.h,
+            left: landscape ? 16.w : 66.w,
+            right: landscape ? 16.w : 66.w,
+            bottom: landscape ? 18.h : 34.h,
             child: Column(
               children: [
                 Text(
@@ -201,6 +251,7 @@ class _Hero extends StatelessWidget {
                     color: Colors.white,
                     fontWeight: FontWeight.bold,
                     fontStyle: FontStyle.italic,
+                    fontSize: landscape ? 22 : null,
                   ),
                 ),
                 if (date != null) ...[
@@ -210,17 +261,49 @@ class _Hero extends StatelessWidget {
                     textAlign: TextAlign.center,
                     style: context.textTheme.titleMedium?.copyWith(
                       color: Colors.white,
+                      fontSize: landscape ? 16 : null,
                     ),
                   ),
                 ],
                 15.verticalSpace,
-                AppButton(text: 'Get Tickets', onPressed: () {}),
-                10.verticalSpace,
-                AppButton.outlined(
-                  text: 'Watch Trailer',
-                  onPressed: onWatchTrailer,
-                  icon: const Icon(Icons.play_arrow_rounded, size: 24),
-                ),
+                if (landscape)
+                  Row(
+                    children: [
+                      Expanded(
+                        child: AppButton(
+                          text: 'Get Tickets',
+                          onPressed: () {},
+                          textStyle: const TextStyle(
+                            fontSize: 14,
+                            fontWeight: FontWeight.w600,
+                          ),
+                          padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 8),
+                        ),
+                      ),
+                      10.horizontalSpace,
+                      Expanded(
+                        child: AppButton.outlined(
+                          text: 'Watch Trailer',
+                          onPressed: onWatchTrailer,
+                          icon: const Icon(Icons.play_arrow_rounded, size: 20),
+                          textStyle: const TextStyle(
+                            fontSize: 14,
+                            fontWeight: FontWeight.w600,
+                          ),
+                          padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 8),
+                        ),
+                      ),
+                    ],
+                  )
+                else ...[
+                  AppButton(text: 'Get Tickets', onPressed: () {}),
+                  10.verticalSpace,
+                  AppButton.outlined(
+                    text: 'Watch Trailer',
+                    onPressed: onWatchTrailer,
+                    icon: const Icon(Icons.play_arrow_rounded, size: 24),
+                  ),
+                ],
               ],
             ),
           ),
@@ -231,9 +314,14 @@ class _Hero extends StatelessWidget {
 }
 
 class _GenreChip extends StatelessWidget {
-  const _GenreChip({required this.label, required this.color});
+  const _GenreChip({
+    required this.label,
+    required this.color,
+    this.compact = false,
+  });
   final String label;
   final Color color;
+  final bool compact;
 
   @override
   Widget build(BuildContext context) => Container(
@@ -247,6 +335,7 @@ class _GenreChip extends StatelessWidget {
       style: context.textTheme.labelMedium?.copyWith(
         color: Colors.white,
         fontWeight: FontWeight.w600,
+        fontSize: compact ? 12 : null,
       ),
     ),
   );

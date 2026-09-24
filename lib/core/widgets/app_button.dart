@@ -11,6 +11,7 @@ class AppButton extends StatelessWidget {
     this.onLongPress,
     this.width,
     this.height,
+    this.padding,
     this.backgroundColor,
     this.foregroundColor,
     this.elevation,
@@ -38,6 +39,7 @@ class AppButton extends StatelessWidget {
     this.onLongPress,
     this.width,
     this.height,
+    this.padding,
     this.foregroundColor,
     this.borderColor,
     this.borderWidth,
@@ -65,6 +67,7 @@ class AppButton extends StatelessWidget {
     this.onLongPress,
     this.width,
     this.height,
+    this.padding,
     this.foregroundColor,
     this.textStyle,
     this.loading = false,
@@ -91,6 +94,7 @@ class AppButton extends StatelessWidget {
   final VoidCallback? onLongPress;
   final double? width;
   final double? height;
+  final EdgeInsetsGeometry? padding;
   final Color? backgroundColor;
   final Color? foregroundColor;
   final Color? borderColor;
@@ -139,6 +143,7 @@ class AppButton extends StatelessWidget {
   Widget _buildElevated(BuildContext context, ThemeData theme) {
     return ElevatedButton(
       style: theme.elevatedButtonTheme.style?.copyWith(
+        padding: padding == null ? null : WidgetStateProperty.all(padding!),
         backgroundColor: backgroundColor != null
             ? WidgetStateProperty.all(backgroundColor)
             : null,
@@ -158,6 +163,7 @@ class AppButton extends StatelessWidget {
   Widget _buildOutlined(BuildContext context, ThemeData theme) {
     return OutlinedButton(
       style: theme.outlinedButtonTheme.style?.copyWith(
+        padding: padding == null ? null : WidgetStateProperty.all(padding!),
         foregroundColor: foregroundColor != null
             ? WidgetStateProperty.all(foregroundColor)
             : null,
@@ -179,6 +185,7 @@ class AppButton extends StatelessWidget {
   Widget _buildText(BuildContext context, ThemeData theme) {
     return TextButton(
       style: theme.textButtonTheme.style?.copyWith(
+        padding: padding == null ? null : WidgetStateProperty.all(padding!),
         foregroundColor: foregroundColor != null
             ? WidgetStateProperty.all(foregroundColor)
             : null,
@@ -222,11 +229,14 @@ class AppButton extends StatelessWidget {
         icon!,
         if (text != null) ...[
           SizedBox(width: 8.w),
-          Text(
-            text!,
-            overflow: TextOverflow.ellipsis,
-            maxLines: 1,
-            style: textStyle,
+          Flexible(
+            child: Text(
+              text!,
+              overflow: TextOverflow.ellipsis,
+              maxLines: 1,
+              textAlign: TextAlign.center,
+              style: textStyle,
+            ),
           ),
         ],
       ],
