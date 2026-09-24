@@ -66,6 +66,7 @@ class _BottomNavState extends State<BottomNavPage> {
               padding: EdgeInsets.symmetric(horizontal: 49.w),
               decoration: BoxDecoration(
                 color: const Color(0xff2E2739),
+                border: Border.all(style: BorderStyle.none),
                 borderRadius: BorderRadius.only(
                   topLeft: Radius.circular(27.r),
                   topRight: Radius.circular(27.r),

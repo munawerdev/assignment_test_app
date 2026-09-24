@@ -110,6 +110,30 @@ class MovieDetailModel {
   );
 }
 
+class MovieVideoModel {
+  const MovieVideoModel({
+    this.key,
+    this.name,
+    this.site,
+    this.type,
+    this.official,
+  });
+  final String? key;
+  final String? name;
+  final String? site;
+  final String? type;
+  final bool? official;
+
+  factory MovieVideoModel.fromJson(Map<String, dynamic> json) =>
+      MovieVideoModel(
+        key: json['key'] as String?,
+        name: json['name'] as String?,
+        site: json['site'] as String?,
+        type: json['type'] as String?,
+        official: json['official'] as bool?,
+      );
+}
+
 class MovieGenre {
   const MovieGenre({this.id, this.name});
   final int? id;

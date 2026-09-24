@@ -9,11 +9,11 @@ abstract class AppUrl {
 
   // movie_detail
   static String movieDetail(String movieId) => '$_baseUrl/$movieId';
+  static String movieVideos(String movieId) => '$_baseUrl/$movieId/videos';
   // search
   static String get search => '_baseUrl/search';
 
   // category
   static String get category => '_baseUrl/category';
-
 }
 // static String endpoint(String userId) => '$_baseUrl/$path';

@@ -45,7 +45,10 @@ class _MovieDetailState extends State<MovieDetailPage> {
           onLoading: (context) => const MovieDetailShimmer(),
           onCompleted: (_, movie) => RefreshIndicator.adaptive(
             onRefresh: cubit.movieDetail,
-            child: _MovieDetailContent(movie: movie),
+            child: _MovieDetailContent(
+              movie: movie,
+              onWatchTrailer: cubit.watchTrailer,
+            ),
           ),
           onRetry: cubit.movieDetail,
         );
@@ -55,8 +58,12 @@ class _MovieDetailState extends State<MovieDetailPage> {
 }
 
 class _MovieDetailContent extends StatelessWidget {
-  const _MovieDetailContent({required this.movie});
+  const _MovieDetailContent({
+    required this.movie,
+    required this.onWatchTrailer,
+  });
   final MovieDetailModel movie;
+  final VoidCallback onWatchTrailer;
 
   @override
   Widget build(BuildContext context) => CustomScrollView(
@@ -64,7 +71,9 @@ class _MovieDetailContent extends StatelessWidget {
       parent: BouncingScrollPhysics(),
     ),
     slivers: [
-      SliverToBoxAdapter(child: _Hero(movie: movie)),
+      SliverToBoxAdapter(
+        child: _Hero(movie: movie, onWatchTrailer: onWatchTrailer),
+      ),
       SliverToBoxAdapter(
         child: Padding(
           padding: EdgeInsets.fromLTRB(40.w, 27.h, 40.w, 57.h),
@@ -122,8 +131,9 @@ class _MovieDetailContent extends StatelessWidget {
 }
 
 class _Hero extends StatelessWidget {
-  const _Hero({required this.movie});
+  const _Hero({required this.movie, required this.onWatchTrailer});
   final MovieDetailModel movie;
+  final VoidCallback onWatchTrailer;
 
   @override
   Widget build(BuildContext context) {
@@ -208,7 +218,7 @@ class _Hero extends StatelessWidget {
                 10.verticalSpace,
                 AppButton.outlined(
                   text: 'Watch Trailer',
-                  onPressed: () {},
+                  onPressed: onWatchTrailer,
                   icon: const Icon(Icons.play_arrow_rounded, size: 24),
                 ),
               ],
