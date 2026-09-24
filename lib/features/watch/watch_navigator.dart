@@ -1,3 +1,4 @@
+import 'package:assignment_test_app/features/category/category_navigator.dart';
 import 'package:assignment_test_app/features/movie_detail/movie_detail_navigator.dart';
 import 'package:material_ui/material_ui.dart';
 
@@ -6,7 +7,7 @@ import '/injection_container.dart';
 import 'watch_initial_params.dart';
 import 'watch_page.dart';
 
-class WatchNavigator with MovieDetailRoute {
+class WatchNavigator with MovieDetailRoute, CategoryRoute {
   WatchNavigator(this.navigator);
   @override
   late BuildContext context;

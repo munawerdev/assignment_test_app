@@ -62,7 +62,7 @@ class _WatchState extends State<WatchPage> {
               actions: [
                 IconButton(
                   tooltip: 'Search',
-                  onPressed: () {},
+                  onPressed: () => cubit.goCategory(),
                   style: IconButton.styleFrom(
                     backgroundColor: Colors.transparent,
                   ),

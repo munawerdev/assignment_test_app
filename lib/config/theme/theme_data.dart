@@ -118,31 +118,22 @@ ThemeData get lightTheme => ThemeData(
   // Input Decoration Theme
   inputDecorationTheme: InputDecorationTheme(
     filled: true,
-    fillColor: AppColors.lightColorScheme.surface,
+    fillColor: const Color(0xffF2F2F6),
     isDense: true,
     contentPadding: EdgeInsets.symmetric(horizontal: 16.w, vertical: 12.h),
 
     // Border styles
     border: OutlineInputBorder(
-      borderRadius: BorderRadius.circular(8.r),
-      borderSide: BorderSide(
-        color: AppColors.lightColorScheme.outline,
-        width: 1.w,
-      ),
+      borderRadius: BorderRadius.circular(30.r),
+      borderSide: BorderSide(color: const Color(0xffEFEFEF), width: 1.w),
     ),
     enabledBorder: OutlineInputBorder(
-      borderRadius: BorderRadius.circular(8.r),
-      borderSide: BorderSide(
-        color: AppColors.lightColorScheme.outline,
-        width: 1.w,
-      ),
+      borderRadius: BorderRadius.circular(30.r),
+      borderSide: BorderSide(color: const Color(0xffEFEFEF), width: 1.w),
     ),
     focusedBorder: OutlineInputBorder(
-      borderRadius: BorderRadius.circular(8.r),
-      borderSide: BorderSide(
-        color: AppColors.lightColorScheme.primary,
-        width: 2.w,
-      ),
+      borderRadius: BorderRadius.circular(30.r),
+      borderSide: BorderSide(color: const Color(0xffEFEFEF), width: 1.w),
     ),
     errorBorder: OutlineInputBorder(
       borderRadius: BorderRadius.circular(8.r),
@@ -171,12 +162,12 @@ ThemeData get lightTheme => ThemeData(
       color: AppColors.lightColorScheme.onSurfaceVariant,
     ),
     hintStyle: AppTextStyles.bodyMedium.copyWith(
-      color: AppColors.lightColorScheme.onSurfaceVariant.withValues(alpha: 0.6),
+      color: const Color(0xff202c43).withValues(alpha: 0.3),
     ),
-    errorStyle: AppTextStyles.bodySmall.copyWith(
+    errorStyle: AppTextStyles.bodyMedium.copyWith(
       color: AppColors.lightColorScheme.error,
     ),
-    helperStyle: AppTextStyles.bodySmall.copyWith(
+    helperStyle: AppTextStyles.bodyMedium.copyWith(
       color: AppColors.lightColorScheme.onSurfaceVariant.withValues(alpha: 0.6),
     ),
 

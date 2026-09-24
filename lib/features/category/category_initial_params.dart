@@ -1,0 +1,3 @@
+class CategoryInitialParams {
+const CategoryInitialParams();
+}

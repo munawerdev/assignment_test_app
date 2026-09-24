@@ -1,4 +1,5 @@
 import 'package:assignment_test_app/core/constants/global.dart';
+import 'package:assignment_test_app/features/category/category_initial_params.dart';
 import 'package:assignment_test_app/features/movie_detail/movie_detail_initial_params.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -34,4 +35,6 @@ class WatchCubit extends Cubit<WatchState> {
 
   void goMovieDetailPage({required Result result}) =>
       navigator.openMovieDetail(MovieDetailInitialParams(result: result));
+
+  void goCategory() => navigator.openCategory(const CategoryInitialParams());
 }

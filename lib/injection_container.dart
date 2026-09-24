@@ -1,4 +1,18 @@
 /*
+************************ Category ************************
+*/
+import 'features/category/category_cubit.dart';
+import 'features/category/category_navigator.dart';
+import 'features/category/category_initial_params.dart';
+
+/*
+************************ Search ************************
+*/
+import 'features/search/search_cubit.dart';
+import 'features/search/search_navigator.dart';
+import 'features/search/search_initial_params.dart';
+
+/*
 ************************ MovieDetail ************************
 */
 /*
@@ -118,4 +132,28 @@ Future<void> init() async {
     MovieDetailInitialParams,
     dynamic
   >((params, _) => MovieDetailCubit(params, getIt(), getIt())..movieDetail());
+/*
+************************ Search ************************
+*/
+  getIt.registerSingleton<SearchNavigator>(SearchNavigator(getIt()));
+  getIt.registerFactoryParam<SearchCubit, SearchInitialParams, dynamic>(
+      (params, _) => SearchCubit(params, getIt()
+      , getIt()
+      
+      )
+      ..search()
+      );
+
+/*
+************************ Category ************************
+*/
+  getIt.registerSingleton<CategoryNavigator>(CategoryNavigator(getIt()));
+  getIt.registerFactoryParam<CategoryCubit, CategoryInitialParams, dynamic>(
+      (params, _) => CategoryCubit(params, getIt()
+      , getIt()
+      
+      )
+      ..category()
+      );
+
 }
