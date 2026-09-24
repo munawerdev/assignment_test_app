@@ -1,8 +1,9 @@
-import 'package:flutter/material.dart';
-import 'dashboard_initial_params.dart';
-import 'dashboard_page.dart';
+import 'package:material_ui/material_ui.dart';
+
 import '/config/navigation/app_navigator.dart';
 import '/injection_container.dart';
+import 'dashboard_initial_params.dart';
+import 'dashboard_page.dart';
 
 class DashboardNavigator {
   DashboardNavigator(this.navigator);
@@ -13,13 +14,12 @@ class DashboardNavigator {
 }
 
 mixin DashboardRoute {
-void openDashboard(DashboardInitialParams initialParams) =>
-navigator.push(
-context: context,
-        routeName: DashboardPage(cubit: getIt(param1: initialParams))
-);
+  void openDashboard(DashboardInitialParams initialParams) => navigator.push(
+    context: context,
+    routeName: DashboardPage(cubit: getIt(param1: initialParams)),
+  );
 
-AppNavigator get navigator;
+  AppNavigator get navigator;
 
-BuildContext get context;
+  BuildContext get context;
 }

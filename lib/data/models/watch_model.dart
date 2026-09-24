@@ -1,26 +1,17 @@
-// To parse this JSON data, do
-//
-//     final watchModel = watchModelFromJson(jsonString);
-
-import 'dart:convert';
-
-WatchModel watchModelFromJson(String str) =>
-    WatchModel.fromJson(json.decode(str));
-
 class WatchModel {
-  final Dates dates;
-  final int page;
-  final List<Result> results;
-  final int totalPages;
-  final int totalResults;
-
   WatchModel({
-    required this.dates,
-    required this.page,
-    required this.results,
-    required this.totalPages,
-    required this.totalResults,
+    this.dates,
+    this.page,
+    this.results,
+    this.totalPages,
+    this.totalResults,
   });
+
+  final Dates? dates;
+  final int? page;
+  final List<Result>? results;
+  final int? totalPages;
+  final int? totalResults;
 
   WatchModel copyWith({
     Dates? dates,
@@ -37,63 +28,68 @@ class WatchModel {
   );
 
   factory WatchModel.fromJson(Map<String, dynamic> json) => WatchModel(
-    dates: Dates.fromJson(json['dates']),
-    page: json['page'],
-    results: List<Result>.from(json['results'].map((x) => Result.fromJson(x))),
-    totalPages: json['total_pages'],
-    totalResults: json['total_results'],
+    dates: json['dates'] is Map<String, dynamic>
+        ? Dates.fromJson(json['dates'] as Map<String, dynamic>)
+        : null,
+    page: (json['page'] as num?)?.toInt(),
+    results: (json['results'] as List<dynamic>?)
+        ?.whereType<Map<String, dynamic>>()
+        .map(Result.fromJson)
+        .toList(),
+    totalPages: (json['total_pages'] as num?)?.toInt(),
+    totalResults: (json['total_results'] as num?)?.toInt(),
   );
 }
 
 class Dates {
-  final DateTime maximum;
-  final DateTime minimum;
+  Dates({this.maximum, this.minimum});
 
-  Dates({required this.maximum, required this.minimum});
+  final DateTime? maximum;
+  final DateTime? minimum;
 
   Dates copyWith({DateTime? maximum, DateTime? minimum}) =>
       Dates(maximum: maximum ?? this.maximum, minimum: minimum ?? this.minimum);
 
   factory Dates.fromJson(Map<String, dynamic> json) => Dates(
-    maximum: DateTime.parse(json['maximum']),
-    minimum: DateTime.parse(json['minimum']),
+    maximum: DateTime.tryParse(json['maximum'] as String? ?? ''),
+    minimum: DateTime.tryParse(json['minimum'] as String? ?? ''),
   );
 }
 
 class Result {
-  final bool adult;
-  final String backdropPath;
-  final List<int> genreIds;
-  final int id;
-  final String title;
-  final String originalLanguage;
-  final String originalTitle;
-  final String overview;
-  final double popularity;
-  final String posterPath;
-  final DateTime releaseDate;
-  final bool softcore;
-  final bool video;
-  final double voteAverage;
-  final int voteCount;
-
   Result({
-    required this.adult,
-    required this.backdropPath,
-    required this.genreIds,
-    required this.id,
-    required this.title,
-    required this.originalLanguage,
-    required this.originalTitle,
-    required this.overview,
-    required this.popularity,
-    required this.posterPath,
-    required this.releaseDate,
-    required this.softcore,
-    required this.video,
-    required this.voteAverage,
-    required this.voteCount,
+    this.adult,
+    this.backdropPath,
+    this.genreIds,
+    this.id,
+    this.title,
+    this.originalLanguage,
+    this.originalTitle,
+    this.overview,
+    this.popularity,
+    this.posterPath,
+    this.releaseDate,
+    this.softcore,
+    this.video,
+    this.voteAverage,
+    this.voteCount,
   });
+
+  final bool? adult;
+  final String? backdropPath;
+  final List<int>? genreIds;
+  final int? id;
+  final String? title;
+  final String? originalLanguage;
+  final String? originalTitle;
+  final String? overview;
+  final double? popularity;
+  final String? posterPath;
+  final DateTime? releaseDate;
+  final bool? softcore;
+  final bool? video;
+  final double? voteAverage;
+  final int? voteCount;
 
   Result copyWith({
     bool? adult,
@@ -130,20 +126,23 @@ class Result {
   );
 
   factory Result.fromJson(Map<String, dynamic> json) => Result(
-    adult: json['adult'],
-    backdropPath: json['backdrop_path'],
-    genreIds: List<int>.from(json['genre_ids'].map((x) => x)),
-    id: json['id'],
-    title: json['title'],
-    originalLanguage: json['original_language'],
-    originalTitle: json['original_title'],
-    overview: json['overview'],
-    popularity: json['popularity']?.toDouble(),
-    posterPath: json['poster_path'],
-    releaseDate: DateTime.parse(json['release_date']),
-    softcore: json['softcore'],
-    video: json['video'],
-    voteAverage: json['vote_average']?.toDouble(),
-    voteCount: json['vote_count'],
+    adult: json['adult'] as bool?,
+    backdropPath: json['backdrop_path'] as String?,
+    genreIds: (json['genre_ids'] as List<dynamic>?)
+        ?.whereType<num>()
+        .map((id) => id.toInt())
+        .toList(),
+    id: (json['id'] as num?)?.toInt(),
+    title: json['title'] as String?,
+    originalLanguage: json['original_language'] as String?,
+    originalTitle: json['original_title'] as String?,
+    overview: json['overview'] as String?,
+    popularity: (json['popularity'] as num?)?.toDouble(),
+    posterPath: json['poster_path'] as String?,
+    releaseDate: DateTime.tryParse(json['release_date'] as String? ?? ''),
+    softcore: json['softcore'] as bool?,
+    video: json['video'] as bool?,
+    voteAverage: (json['vote_average'] as num?)?.toDouble(),
+    voteCount: (json['vote_count'] as num?)?.toInt(),
   );
 }

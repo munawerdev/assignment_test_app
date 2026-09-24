@@ -7,4 +7,9 @@ abstract class GlobalConstants {
       GlobalKey<ScaffoldMessengerState>();
 
   static const apiKey = 'bc4e89a752a12eda8c4370f5d64ad31d';
+
+  static String imageGetURL(String? path) =>
+      'https://image.tmdb.org/t/p/original$path';
+
+  static const defaultPageLimit = 20;
 }

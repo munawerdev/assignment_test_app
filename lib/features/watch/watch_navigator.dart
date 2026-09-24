@@ -1,4 +1,5 @@
-import 'package:flutter/material.dart';
+import 'package:material_ui/material_ui.dart';
+
 import 'watch_initial_params.dart';
 import 'watch_page.dart';
 import '/config/navigation/app_navigator.dart';
@@ -13,13 +14,12 @@ class WatchNavigator {
 }
 
 mixin WatchRoute {
-void openWatch(WatchInitialParams initialParams) =>
-navigator.push(
-context: context,
-        routeName: WatchPage(cubit: getIt(param1: initialParams))
-);
+  void openWatch(WatchInitialParams initialParams) => navigator.push(
+    context: context,
+    routeName: WatchPage(cubit: getIt(param1: initialParams)),
+  );
 
-AppNavigator get navigator;
+  AppNavigator get navigator;
 
-BuildContext get context;
+  BuildContext get context;
 }
