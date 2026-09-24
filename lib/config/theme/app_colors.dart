@@ -6,7 +6,7 @@ class AppColors {
   AppColors._();
 
   // Primary Colors
-  static const Color primary = Color(0xFF2196F3);
+  static const Color primary = Color(0xff2E2739);
   // static const Color primaryVariant = Color(0xFF1976D2);
 
   // // Secondary Colors
@@ -40,7 +40,6 @@ class AppColors {
   // Color Scheme
   static ColorScheme lightColorScheme = ColorScheme.fromSeed(
     seedColor: primary,
-    brightness: Brightness.light,
     primary: primary,
     // onPrimary: onPrimary,
     // primaryContainer: primaryVariant,
@@ -71,10 +70,5 @@ class AppColors {
     // onInverseSurface: onInverseSurface,
     // inversePrimary: inversePrimary,
     // surfaceTint: primary,
-  );
-  static ColorScheme darkColorScheme = ColorScheme.fromSeed(
-    primary: primary,
-    seedColor: primary,
-    brightness: Brightness.dark,
   );
 }

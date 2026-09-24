@@ -1,5 +1,5 @@
 class BottomNavInitialParams {
   final int selectedIndex;
 
-  const BottomNavInitialParams({this.selectedIndex = 0});
+  const BottomNavInitialParams({this.selectedIndex = 1});
 }

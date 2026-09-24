@@ -14,5 +14,11 @@ abstract class AppUrl {
 
   // home
   static String get home => '$_baseUrl/home';
+  // watch
+  static String get watch => '_baseUrl/watch';
+
+  // media_library
+  static String get mediaLibrary => '_baseUrl/media_library';
+
 }
 // static String endpoint(String userId) => '$_baseUrl/$path';

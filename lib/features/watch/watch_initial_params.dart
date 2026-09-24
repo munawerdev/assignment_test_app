@@ -1,0 +1,3 @@
+class WatchInitialParams {
+const WatchInitialParams();
+}

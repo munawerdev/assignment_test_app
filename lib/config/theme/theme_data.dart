@@ -9,6 +9,7 @@ import 'app_text_styles.dart';
 ThemeData get lightTheme => ThemeData(
   useMaterial3: true,
   brightness: Brightness.light,
+  scaffoldBackgroundColor: const Color(0xffF6F6FA),
   fontFamily: AppTextStyles.poppins,
   colorScheme: AppColors.lightColorScheme,
   textTheme: AppTextStyles.textTheme,
@@ -19,7 +20,7 @@ ThemeData get lightTheme => ThemeData(
     elevation: 0,
     scrolledUnderElevation: 0,
     centerTitle: true,
-    backgroundColor: AppColors.lightColorScheme.surface,
+    backgroundColor: Colors.white,
     foregroundColor: AppColors.lightColorScheme.onSurface,
     surfaceTintColor: Colors.transparent,
     shadowColor: AppColors.lightColorScheme.shadow,

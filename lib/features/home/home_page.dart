@@ -22,21 +22,6 @@ class _HomeState extends State<HomePage> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      // body: RefreshIndicator.adaptive(
-      //   onRefresh: cubit.home,
-      //   child: BlocBuilder(
-      //     bloc: cubit,
-      //     builder: (context, state) {
-      //       state as HomeState;
-      //       return state.response.toWidget(
-      //         onCompleted: (context, data) => const SizedBox(),
-      //         onRetry: () => cubit.home(showLoading: true),
-      //       );
-      //     },
-      //   ),
-      // ),
-      appBar: AppBar(title: const Text('data')),
-    );
+    return const Scaffold(body: Center(child: Text('Home')));
   }
 }
