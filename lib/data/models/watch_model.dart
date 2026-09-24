@@ -22,6 +22,20 @@ class WatchModel {
     required this.totalResults,
   });
 
+  WatchModel copyWith({
+    Dates? dates,
+    int? page,
+    List<Result>? results,
+    int? totalPages,
+    int? totalResults,
+  }) => WatchModel(
+    dates: dates ?? this.dates,
+    page: page ?? this.page,
+    results: results ?? this.results,
+    totalPages: totalPages ?? this.totalPages,
+    totalResults: totalResults ?? this.totalResults,
+  );
+
   factory WatchModel.fromJson(Map<String, dynamic> json) => WatchModel(
     dates: Dates.fromJson(json['dates']),
     page: json['page'],
@@ -36,6 +50,9 @@ class Dates {
   final DateTime minimum;
 
   Dates({required this.maximum, required this.minimum});
+
+  Dates copyWith({DateTime? maximum, DateTime? minimum}) =>
+      Dates(maximum: maximum ?? this.maximum, minimum: minimum ?? this.minimum);
 
   factory Dates.fromJson(Map<String, dynamic> json) => Dates(
     maximum: DateTime.parse(json['maximum']),
@@ -77,6 +94,40 @@ class Result {
     required this.voteAverage,
     required this.voteCount,
   });
+
+  Result copyWith({
+    bool? adult,
+    String? backdropPath,
+    List<int>? genreIds,
+    int? id,
+    String? title,
+    String? originalLanguage,
+    String? originalTitle,
+    String? overview,
+    double? popularity,
+    String? posterPath,
+    DateTime? releaseDate,
+    bool? softcore,
+    bool? video,
+    double? voteAverage,
+    int? voteCount,
+  }) => Result(
+    adult: adult ?? this.adult,
+    backdropPath: backdropPath ?? this.backdropPath,
+    genreIds: genreIds ?? this.genreIds,
+    id: id ?? this.id,
+    title: title ?? this.title,
+    originalLanguage: originalLanguage ?? this.originalLanguage,
+    originalTitle: originalTitle ?? this.originalTitle,
+    overview: overview ?? this.overview,
+    popularity: popularity ?? this.popularity,
+    posterPath: posterPath ?? this.posterPath,
+    releaseDate: releaseDate ?? this.releaseDate,
+    softcore: softcore ?? this.softcore,
+    video: video ?? this.video,
+    voteAverage: voteAverage ?? this.voteAverage,
+    voteCount: voteCount ?? this.voteCount,
+  );
 
   factory Result.fromJson(Map<String, dynamic> json) => Result(
     adult: json['adult'],

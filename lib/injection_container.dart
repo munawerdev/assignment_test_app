@@ -87,7 +87,7 @@ Future<void> init() async {
     MediaLibraryCubit,
     MediaLibraryInitialParams,
     dynamic
-  >((params, _) => MediaLibraryCubit(params, getIt(), getIt())..mediaLibrary());
+  >((params, _) => MediaLibraryCubit(params, getIt(), getIt()));
 
   /*
 ************************ More ************************
