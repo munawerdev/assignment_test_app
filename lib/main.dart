@@ -7,7 +7,6 @@ import 'package:material_ui/material_ui.dart';
 
 import '/config/theme/theme_data.dart';
 import '/core/constants/global.dart';
-import '/core/show/checker_navigator_observer.dart';
 import '/injection_container.dart' as di;
 import '/injection_container.dart';
 
@@ -27,7 +26,6 @@ class MyApp extends StatelessWidget {
     builder: (_, child) => MaterialApp(
       navigatorKey: GlobalConstants.navigatorKey,
       scaffoldMessengerKey: GlobalConstants.scaffoldMessengerKey,
-      navigatorObservers: [CheckerNavigatorObserver()],
       localizationsDelegates:
           flutter_localizations.GlobalMaterialLocalizations.delegates,
       debugShowCheckedModeBanner: false,

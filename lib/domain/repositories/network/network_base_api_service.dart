@@ -10,41 +10,4 @@ abstract class NetworkBaseApiService {
     Map<String, String>? headers,
     CancelToken? cancelToken,
   });
-
-  Future<Either<NetworkFailure, T>> post<T>({
-    required String url,
-    required Map<String, dynamic> body,
-    Map<String, String>? headers,
-    Map<String, dynamic>? queryParams,
-    bool isFormData = false,
-    CancelToken? cancelToken,
-    ProgressCallback? onSendProgress,
-  });
-
-  Future<Either<NetworkFailure, T>> patch<T>({
-    required String url,
-    Map<String, dynamic>? body,
-    Map<String, String>? headers,
-    Map<String, dynamic>? queryParams,
-    bool isFormData = false,
-    CancelToken? cancelToken,
-    ProgressCallback? onSendProgress,
-  });
-
-  Future<Either<NetworkFailure, T>> put<T>({
-    required String url,
-    Map<String, dynamic>? body,
-    Map<String, String>? headers,
-    Map<String, dynamic>? queryParams,
-    bool isFormData = false,
-    CancelToken? cancelToken,
-    ProgressCallback? onSendProgress,
-  });
-
-  Future<Either<NetworkFailure, T>> delete<T>({
-    required String url,
-    Map<String, dynamic>? body,
-    Map<String, String>? headers,
-    CancelToken? cancelToken,
-  });
 }

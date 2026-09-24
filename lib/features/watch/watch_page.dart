@@ -30,6 +30,7 @@ class _WatchState extends State<WatchPage> {
 
   @override
   Widget build(BuildContext context) {
+    final landscape = MediaQuery.orientationOf(context) == Orientation.landscape;
     return Scaffold(
       body: RefreshIndicator.adaptive(
         onRefresh: cubit.watch,
@@ -56,6 +57,7 @@ class _WatchState extends State<WatchPage> {
                 'Watch',
                 style: context.textTheme.titleMedium?.copyWith(
                   color: const Color(0xff202C43),
+                  fontSize: landscape ? 16 : null,
                 ),
               ),
               centerTitle: false,
@@ -69,7 +71,7 @@ class _WatchState extends State<WatchPage> {
                   icon: Icon(
                     Icons.search_rounded,
                     color: const Color(0xff202C43),
-                    size: 24.r,
+                    size: landscape ? 20 : 24.r,
                   ),
                 ),
                 16.horizontalSpace,
@@ -87,22 +89,51 @@ class _WatchState extends State<WatchPage> {
                   state as WatchState;
                   return state.response.toWidget(
                     onRetry: () => cubit.watch(),
-                    onLoading: (context) => const MovieCardShimmer(),
-                    onCompleted: (context, data) => ListView.separated(
-                      shrinkWrap: true,
-                      physics: const NeverScrollableScrollPhysics(),
-                      padding: EdgeInsets.symmetric(horizontal: 20.w),
-                      itemCount: data.results?.length ?? 0,
-                      itemBuilder: (context, index) {
-                        final result = data.results![index];
-                        return GestureDetector(
-                          behavior: HitTestBehavior.opaque,
-                          onTap: () => cubit.goMovieDetailPage(result: result),
-                          child: MovieCard(result: result, context: context),
+                    onLoading: (context) => MovieCardShimmer(landscape: landscape),
+                    onCompleted: (context, data) {
+                      final results = data.results ?? [];
+                      if (landscape) {
+                        return GridView.builder(
+                          shrinkWrap: true,
+                          physics: const NeverScrollableScrollPhysics(),
+                          padding: EdgeInsets.symmetric(horizontal: 20.w),
+                          itemCount: results.length,
+                          gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                            crossAxisCount: 2,
+                            crossAxisSpacing: 14.w,
+                            mainAxisSpacing: 14.h,
+                            childAspectRatio: 1.86,
+                          ),
+                          itemBuilder: (context, index) {
+                            final result = results[index];
+                            return GestureDetector(
+                              behavior: HitTestBehavior.opaque,
+                              onTap: () => cubit.goMovieDetailPage(result: result),
+                              child: MovieCard(
+                                result: result,
+                                context: context,
+                                landscape: true,
+                              ),
+                            );
+                          },
                         );
-                      },
-                      separatorBuilder: (context, index) => 20.verticalSpace,
-                    ),
+                      }
+                      return ListView.separated(
+                        shrinkWrap: true,
+                        physics: const NeverScrollableScrollPhysics(),
+                        padding: EdgeInsets.symmetric(horizontal: 20.w),
+                        itemCount: results.length,
+                        itemBuilder: (context, index) {
+                          final result = results[index];
+                          return GestureDetector(
+                            behavior: HitTestBehavior.opaque,
+                            onTap: () => cubit.goMovieDetailPage(result: result),
+                            child: MovieCard(result: result, context: context),
+                          );
+                        },
+                        separatorBuilder: (context, index) => 20.verticalSpace,
+                      );
+                    },
                   );
                 },
               ),

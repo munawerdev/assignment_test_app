@@ -1,12 +1,8 @@
 import 'package:dio/dio.dart';
 import 'package:talker_dio_logger/talker_dio_logger.dart';
 
-import '/domain/repositories/local/local_storage_base_api_service.dart';
-
 class DioConfig {
-  static Dio createDio({
-    required LocalStorageBaseApiService localStorageRepository,
-  }) {
+  static Dio createDio() {
     final dio = Dio();
 
     // Base configuration

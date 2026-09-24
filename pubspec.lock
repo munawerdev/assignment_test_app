@@ -191,7 +191,7 @@ packages:
     source: hosted
     version: "3.4.5"
   flutter_inappwebview:
-    dependency: "direct overridden"
+    dependency: transitive
     description:
       name: flutter_inappwebview
       sha256: "3952d116ee93bad2946401377e7ade87b5ef200e95ecb5ba1affa1b6329a6867"
@@ -309,14 +309,6 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "9.3.0"
-  hive:
-    dependency: "direct main"
-    description:
-      name: hive
-      sha256: "8dcf6db979d7933da8217edcec84e9df1bdb4e4edc7fc77dbd5aa74356d6d941"
-      url: "https://pub.dev"
-    source: hosted
-    version: "2.2.3"
   hooks:
     dependency: transitive
     description:

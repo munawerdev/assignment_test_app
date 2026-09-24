@@ -3,17 +3,15 @@ import 'package:fpdart/fpdart.dart';
 
 import '/data/repositories/network/errors/api_error_handler.dart';
 import '/domain/failures/network/network_failure.dart';
-import '/domain/repositories/local/local_storage_base_api_service.dart';
 import '/domain/repositories/network/network_base_api_service.dart';
 import 'dio_config.dart';
 
 class DioNetworkRepository implements NetworkBaseApiService {
-  final LocalStorageBaseApiService _localStorageRepository;
   final ApiErrorHandler _apiErrorHandler;
   late final Dio _dio;
 
-  DioNetworkRepository(this._localStorageRepository, this._apiErrorHandler) {
-    _dio = DioConfig.createDio(localStorageRepository: _localStorageRepository);
+  DioNetworkRepository(this._apiErrorHandler) {
+    _dio = DioConfig.createDio();
   }
 
   @override
@@ -27,104 +25,6 @@ class DioNetworkRepository implements NetworkBaseApiService {
       () => _dio.get(
         url,
         queryParameters: queryParams,
-        cancelToken: cancelToken,
-        options: Options(headers: headers),
-      ),
-    );
-  }
-
-  @override
-  Future<Either<NetworkFailure, T>> post<T>({
-    required String url,
-    required Map<String, dynamic> body,
-    Map<String, String>? headers,
-    Map<String, dynamic>? queryParams,
-    bool isFormData = false,
-    CancelToken? cancelToken,
-    ProgressCallback? onSendProgress,
-  }) async {
-    return _executeRequest<T>(
-      () => _dio.post(
-        url,
-        data: isFormData ? FormData.fromMap(body) : body,
-        queryParameters: queryParams,
-        cancelToken: cancelToken,
-        onSendProgress: onSendProgress,
-        options: Options(
-          headers: headers,
-          contentType: isFormData
-              ? Headers.multipartFormDataContentType
-              : Headers.jsonContentType,
-        ),
-      ),
-    );
-  }
-
-  @override
-  Future<Either<NetworkFailure, T>> patch<T>({
-    required String url,
-    Map<String, dynamic>? body,
-    Map<String, String>? headers,
-    Map<String, dynamic>? queryParams,
-    bool isFormData = false,
-    CancelToken? cancelToken,
-    ProgressCallback? onSendProgress,
-  }) async {
-    return _executeRequest<T>(
-      () => _dio.patch(
-        url,
-        data: isFormData && body != null ? FormData.fromMap(body) : body,
-        queryParameters: queryParams,
-        cancelToken: cancelToken,
-        onSendProgress: onSendProgress,
-        options: Options(
-          headers: headers,
-          contentType: isFormData
-              ? Headers.multipartFormDataContentType
-              : Headers.jsonContentType,
-        ),
-      ),
-    );
-  }
-
-  @override
-  Future<Either<NetworkFailure, T>> put<T>({
-    required String url,
-    Map<String, dynamic>? body,
-    Map<String, String>? headers,
-    Map<String, dynamic>? queryParams,
-    bool isFormData = false,
-    CancelToken? cancelToken,
-    ProgressCallback? onSendProgress,
-  }) async {
-    return _executeRequest<T>(
-      () => _dio.put(
-        url,
-        data: isFormData && body != null ? FormData.fromMap(body) : body,
-        queryParameters: queryParams,
-        cancelToken: cancelToken,
-        onSendProgress: onSendProgress,
-        options: Options(
-          headers: headers,
-          contentType: isFormData
-              ? Headers.multipartFormDataContentType
-              : Headers.jsonContentType,
-        ),
-      ),
-    );
-  }
-
-  @override
-  Future<Either<NetworkFailure, T>> delete<T>({
-    required String url,
-    Map<String, dynamic>? body,
-    Map<String, String>? headers,
-    CancelToken? cancelToken,
-  }) async {
-    return _executeRequest<T>(
-      () => _dio.delete(
-        url,
-        data: body,
         cancelToken: cancelToken,
         options: Options(headers: headers),
       ),

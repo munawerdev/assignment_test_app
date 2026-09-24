@@ -6,10 +6,16 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:material_ui/material_ui.dart';
 
 class MovieCard extends StatelessWidget {
-  const MovieCard({super.key, required this.result, required this.context});
+  const MovieCard({
+    super.key,
+    required this.result,
+    required this.context,
+    this.landscape = false,
+  });
 
   final Result result;
   final BuildContext context;
+  final bool landscape;
 
   @override
   Widget build(BuildContext context) {
@@ -51,7 +57,7 @@ class MovieCard extends StatelessWidget {
                 result.originalTitle!,
                 style: context.textTheme.titleMedium?.copyWith(
                   color: Colors.white,
-                  fontSize: 18.sp,
+                  fontSize: landscape ? 14 : 18.sp,
                   shadows: [
                     Shadow(
                       offset: const Offset(0, 1),

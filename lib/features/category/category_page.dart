@@ -32,6 +32,7 @@ class _CategoryState extends State<CategoryPage> {
 
   @override
   Widget build(BuildContext context) {
+    final landscape = MediaQuery.orientationOf(context) == Orientation.landscape;
     const categories = <_CategoryTileData>[
       _CategoryTileData('Comedies', 'https://picsum.photos/id/366/780/440'),
       _CategoryTileData(
@@ -79,22 +80,32 @@ class _CategoryState extends State<CategoryPage> {
                     child: Icon(
                       Icons.arrow_back_ios_new_rounded,
                       color: const Color(0xff202C43),
-                      size: 24.r,
+                      size: landscape ? 20 : 24.r,
                     ),
                   ),
                   20.horizontalSpace,
                   Expanded(
                     child: AppTextFormField(
                       hintText: 'TV shows, movies and more',
+                      config: landscape
+                          ? AppTextFieldConfig(
+                              textStyle: context.textTheme.bodyMedium?.copyWith(
+                                fontSize: 14,
+                              ),
+                              hintStyle: context.textTheme.bodyMedium?.copyWith(
+                                fontSize: 14,
+                              ),
+                            )
+                          : null,
                       prefixIcon: Icon(
                         Icons.search_rounded,
                         color: const Color(0xff202C43),
-                        size: 24.r,
+                        size: landscape ? 20 : 24.r,
                       ),
                       suffixIcon: Icon(
                         Icons.close,
                         color: const Color(0xff202C43),
-                        size: 24.r,
+                        size: landscape ? 18 : 24.r,
                       ),
                     ),
                   ),
@@ -110,14 +121,14 @@ class _CategoryState extends State<CategoryPage> {
             padding: EdgeInsets.fromLTRB(20.w, 30.h, 20.w, 24.h),
             sliver: SliverGrid.builder(
               gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                crossAxisCount: 2,
+                crossAxisCount: landscape ? 4 : 2,
                 crossAxisSpacing: 10.w,
                 mainAxisSpacing: 10.h,
-                childAspectRatio: 1.58,
+                childAspectRatio: landscape ? 1.7 : 1.58,
               ),
               itemCount: categories.length,
               itemBuilder: (context, index) =>
-                  _CategoryTile(data: categories[index]),
+                  _CategoryTile(data: categories[index], compact: landscape),
             ),
           ),
         ],
@@ -134,7 +145,8 @@ class _CategoryTileData {
 
 class _CategoryTile extends StatelessWidget {
   final _CategoryTileData data;
-  const _CategoryTile({required this.data});
+  final bool compact;
+  const _CategoryTile({required this.data, this.compact = false});
 
   @override
   Widget build(BuildContext context) => ClipRRect(
@@ -163,7 +175,10 @@ class _CategoryTile extends StatelessWidget {
             data.title,
             maxLines: 1,
             overflow: TextOverflow.ellipsis,
-            style: context.textTheme.titleMedium?.copyWith(color: Colors.white),
+            style: context.textTheme.titleMedium?.copyWith(
+              color: Colors.white,
+              fontSize: compact ? 14 : null,
+            ),
           ),
         ),
       ],
