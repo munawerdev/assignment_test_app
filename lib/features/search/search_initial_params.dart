@@ -1,3 +1,3 @@
 class SearchInitialParams {
-const SearchInitialParams();
+  const SearchInitialParams();
 }
