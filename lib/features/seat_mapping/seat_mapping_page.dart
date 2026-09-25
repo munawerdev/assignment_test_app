@@ -1,7 +1,6 @@
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:material_ui/material_ui.dart';
 
-/// A local, UI-only seat selector for the assignment's ticket flow.
 class SeatMappingPage extends StatefulWidget {
   const SeatMappingPage({super.key, required this.movieTitle});
 
