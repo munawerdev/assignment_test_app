@@ -6,15 +6,9 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:material_ui/material_ui.dart';
 
 class MovieCard extends StatelessWidget {
-  const MovieCard({
-    super.key,
-    required this.result,
-    required this.context,
-    this.landscape = false,
-  });
+  const MovieCard({super.key, required this.result, this.landscape = false});
 
   final Result result;
-  final BuildContext context;
   final bool landscape;
 
   @override

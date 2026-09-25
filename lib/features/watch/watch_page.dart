@@ -89,7 +89,8 @@ class _WatchState extends State<WatchPage> {
                   state as WatchState;
                   return state.response.toWidget(
                     onRetry: () => cubit.watch(),
-                    onLoading: (context) => MovieCardShimmer(landscape: landscape),
+                    onLoading: (context) =>
+                        MovieCardShimmer(landscape: landscape),
                     onCompleted: (context, data) {
                       final results = data.results ?? [];
                       if (landscape) {
@@ -98,22 +99,20 @@ class _WatchState extends State<WatchPage> {
                           physics: const NeverScrollableScrollPhysics(),
                           padding: EdgeInsets.symmetric(horizontal: 20.w),
                           itemCount: results.length,
-                          gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                            crossAxisCount: 2,
-                            crossAxisSpacing: 14.w,
-                            mainAxisSpacing: 14.h,
-                            childAspectRatio: 1.86,
-                          ),
+                          gridDelegate:
+                              SliverGridDelegateWithFixedCrossAxisCount(
+                                crossAxisCount: 2,
+                                crossAxisSpacing: 14.w,
+                                mainAxisSpacing: 14.h,
+                                childAspectRatio: 1.86,
+                              ),
                           itemBuilder: (context, index) {
                             final result = results[index];
                             return GestureDetector(
                               behavior: HitTestBehavior.opaque,
-                              onTap: () => cubit.goMovieDetailPage(result: result),
-                              child: MovieCard(
-                                result: result,
-                                context: context,
-                                landscape: true,
-                              ),
+                              onTap: () =>
+                                  cubit.goMovieDetailPage(result: result),
+                              child: MovieCard(result: result, landscape: true),
                             );
                           },
                         );
@@ -127,8 +126,9 @@ class _WatchState extends State<WatchPage> {
                           final result = results[index];
                           return GestureDetector(
                             behavior: HitTestBehavior.opaque,
-                            onTap: () => cubit.goMovieDetailPage(result: result),
-                            child: MovieCard(result: result, context: context),
+                            onTap: () =>
+                                cubit.goMovieDetailPage(result: result),
+                            child: MovieCard(result: result),
                           );
                         },
                         separatorBuilder: (context, index) => 20.verticalSpace,

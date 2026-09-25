@@ -1,9 +1,7 @@
-import 'package:assignment_test_app/config/theme/app_text_styles.dart';
-import 'package:assignment_test_app/core/utils/extensions.dart';
 import 'package:assignment_test_app/features/bottom_nav/bottom_nav_state.dart';
+import 'package:assignment_test_app/features/bottom_nav/widget/app_bottom_navigation_bar.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:material_ui/material_ui.dart';
 
 import 'bottom_nav_cubit.dart';
@@ -61,56 +59,11 @@ class _BottomNavState extends State<BottomNavPage> {
         builder: (context, state) {
           state as BottomNavState;
           return Scaffold(
-            bottomNavigationBar: Container(
-              height: 75.h,
-              padding: EdgeInsets.symmetric(horizontal: 49.w),
-              decoration: BoxDecoration(
-                color: const Color(0xff2E2739),
-                border: Border.all(style: BorderStyle.none),
-                borderRadius: BorderRadius.only(
-                  topLeft: Radius.circular(27.r),
-                  topRight: Radius.circular(27.r),
-                ),
-              ),
-              child: Row(
-                mainAxisAlignment: .spaceBetween,
-                children: List.generate(cubit.pages.length, (index) {
-                  final isSelected = state.selectedIndex == index;
-
-                  return GestureDetector(
-                    onTap: () => cubit.setSelectedIndex(index),
-                    behavior: HitTestBehavior.opaque,
-                    child: Column(
-                      mainAxisAlignment: .center,
-                      children: [
-                        Image.asset(
-                          cubit.tabIcons[index],
-                          height: 18.h,
-                          width: 18.w,
-                          color: isSelected
-                              ? Colors.white
-                              : const Color(0xff827D88),
-                        ),
-                        7.verticalSpace,
-
-                        Text(
-                          cubit.tabLabels[index],
-                          style: context.textTheme.bodySmall?.copyWith(
-                            fontSize: 10.sp,
-                            fontFamily: AppTextStyles.roboto,
-                            color: isSelected
-                                ? Colors.white
-                                : const Color(0xff827D88),
-                            fontWeight: isSelected
-                                ? FontWeight.bold
-                                : FontWeight.w400,
-                          ),
-                        ),
-                      ],
-                    ),
-                  );
-                }),
-              ),
+            bottomNavigationBar: AppBottomNavigationBar(
+              labels: cubit.tabLabels,
+              icons: cubit.tabIcons,
+              selectedIndex: state.selectedIndex,
+              onSelected: cubit.setSelectedIndex,
             ),
             body: cubit.pages.elementAt(state.selectedIndex),
           );

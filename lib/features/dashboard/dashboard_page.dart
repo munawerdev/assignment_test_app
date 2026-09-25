@@ -1,3 +1,4 @@
+import 'package:assignment_test_app/core/widgets/app_empty_state.dart';
 import 'package:material_ui/material_ui.dart';
 
 import 'dashboard_cubit.dart';
@@ -28,6 +29,12 @@ class _DashboardState extends State<DashboardPage> {
 
   @override
   Widget build(BuildContext context) {
-    return const Scaffold(body: Center(child: Text('Daahboard')));
+    return const Scaffold(
+      body: AppEmptyState(
+        icon: Icons.movie_creation_outlined,
+        title: 'Your movie hub',
+        message: 'Browse the Watch tab to discover movies and find your next favorite.',
+      ),
+    );
   }
 }

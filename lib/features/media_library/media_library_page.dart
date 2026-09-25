@@ -1,3 +1,4 @@
+import 'package:assignment_test_app/core/widgets/app_empty_state.dart';
 import 'package:material_ui/material_ui.dart';
 
 import 'media_library_cubit.dart';
@@ -22,6 +23,12 @@ class _MediaLibraryState extends State<MediaLibraryPage> {
 
   @override
   Widget build(BuildContext context) {
-    return const Scaffold(body: Center(child: Text('Media Library')));
+    return const Scaffold(
+      body: AppEmptyState(
+        icon: Icons.video_library_outlined,
+        title: 'Your library is empty',
+        message: 'Movies you save will appear here.',
+      ),
+    );
   }
 }

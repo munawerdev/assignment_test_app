@@ -1,3 +1,4 @@
+import 'package:assignment_test_app/core/widgets/app_empty_state.dart';
 import 'package:material_ui/material_ui.dart';
 
 import 'more_cubit.dart';
@@ -22,6 +23,12 @@ class _MoreState extends State<MorePage> {
 
   @override
   Widget build(BuildContext context) {
-    return const Scaffold(body: Center(child: Text('More')));
+    return const Scaffold(
+      body: AppEmptyState(
+        icon: Icons.more_horiz_rounded,
+        title: 'More features coming soon',
+        message: 'Additional settings and features will be available here.',
+      ),
+    );
   }
 }
