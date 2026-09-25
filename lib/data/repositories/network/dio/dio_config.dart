@@ -1,5 +1,4 @@
 import 'package:dio/dio.dart';
-import 'package:talker_dio_logger/talker_dio_logger.dart';
 
 class DioConfig {
   static Dio createDio() {
@@ -14,16 +13,6 @@ class DioConfig {
       headers: {'Content-Type': 'application/json'},
     );
 
-    // Add interceptors in order
-    dio.interceptors.add(
-      TalkerDioLogger(
-        settings: const TalkerDioLoggerSettings(
-          printRequestHeaders: true,
-          printErrorHeaders: false,
-          printErrorMessage: false,
-        ),
-      ),
-    );
     return dio;
   }
 }

@@ -25,6 +25,7 @@ class WatchCubit extends Cubit<WatchState> {
       url: AppUrl.watch,
       queryParams: {'api_key': GlobalConstants.apiKey},
     );
+    if (isClosed) return;
     watch.fold(
       (l) => emit(state.copyWith(response: ApiResponse.error(l))),
       ((r) => emit(

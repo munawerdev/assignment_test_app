@@ -6,6 +6,7 @@ import 'package:assignment_test_app/core/widgets/cached_network_image_widget.dar
 import 'package:assignment_test_app/data/models/movie_detail_model.dart';
 import 'package:assignment_test_app/features/movie_detail/movie_detail_shimmer.dart';
 import 'package:assignment_test_app/features/movie_detail/movie_detail_state.dart';
+import 'package:assignment_test_app/features/seat_mapping/seat_mapping_page.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:material_ui/material_ui.dart';
@@ -48,6 +49,7 @@ class _MovieDetailState extends State<MovieDetailPage> {
             child: _MovieDetailContent(
               movie: movie,
               onWatchTrailer: cubit.watchTrailer,
+              onGetTickets: () => _openSeatMap(context, movie),
             ),
           ),
           onRetry: cubit.movieDetail,
@@ -61,9 +63,11 @@ class _MovieDetailContent extends StatelessWidget {
   const _MovieDetailContent({
     required this.movie,
     required this.onWatchTrailer,
+    required this.onGetTickets,
   });
   final MovieDetailModel movie;
   final VoidCallback onWatchTrailer;
+  final VoidCallback onGetTickets;
 
   @override
   Widget build(BuildContext context) {
@@ -76,17 +80,28 @@ class _MovieDetailContent extends StatelessWidget {
             child: _Hero(
               movie: movie,
               onWatchTrailer: onWatchTrailer,
+              onGetTickets: onGetTickets,
               landscape: true,
             ),
           ),
-          Expanded(child: _Details(movie: movie, scrollable: true, landscape: true)),
+          Expanded(
+            child: _Details(movie: movie, scrollable: true, landscape: true),
+          ),
         ],
       );
     }
     return CustomScrollView(
-      physics: const AlwaysScrollableScrollPhysics(parent: BouncingScrollPhysics()),
+      physics: const AlwaysScrollableScrollPhysics(
+        parent: BouncingScrollPhysics(),
+      ),
       slivers: [
-        SliverToBoxAdapter(child: _Hero(movie: movie, onWatchTrailer: onWatchTrailer)),
+        SliverToBoxAdapter(
+          child: _Hero(
+            movie: movie,
+            onWatchTrailer: onWatchTrailer,
+            onGetTickets: onGetTickets,
+          ),
+        ),
         SliverToBoxAdapter(child: _Details(movie: movie)),
       ],
     );
@@ -167,7 +182,9 @@ class _Details extends StatelessWidget {
     return Container(
       color: Colors.white,
       child: SingleChildScrollView(
-        physics: const AlwaysScrollableScrollPhysics(parent: BouncingScrollPhysics()),
+        physics: const AlwaysScrollableScrollPhysics(
+          parent: BouncingScrollPhysics(),
+        ),
         child: details,
       ),
     );
@@ -178,10 +195,12 @@ class _Hero extends StatelessWidget {
   const _Hero({
     required this.movie,
     required this.onWatchTrailer,
+    required this.onGetTickets,
     this.landscape = false,
   });
   final MovieDetailModel movie;
   final VoidCallback onWatchTrailer;
+  final VoidCallback onGetTickets;
   final bool landscape;
 
   @override
@@ -272,12 +291,15 @@ class _Hero extends StatelessWidget {
                       Expanded(
                         child: AppButton(
                           text: 'Get Tickets',
-                          onPressed: () {},
+                          onPressed: onGetTickets,
                           textStyle: const TextStyle(
                             fontSize: 14,
                             fontWeight: FontWeight.w600,
                           ),
-                          padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 8),
+                          padding: const EdgeInsets.symmetric(
+                            horizontal: 8,
+                            vertical: 8,
+                          ),
                         ),
                       ),
                       10.horizontalSpace,
@@ -290,13 +312,16 @@ class _Hero extends StatelessWidget {
                             fontSize: 14,
                             fontWeight: FontWeight.w600,
                           ),
-                          padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 8),
+                          padding: const EdgeInsets.symmetric(
+                            horizontal: 8,
+                            vertical: 8,
+                          ),
                         ),
                       ),
                     ],
                   )
                 else ...[
-                  AppButton(text: 'Get Tickets', onPressed: () {}),
+                  AppButton(text: 'Get Tickets', onPressed: onGetTickets),
                   10.verticalSpace,
                   AppButton.outlined(
                     text: 'Watch Trailer',
@@ -336,6 +361,16 @@ class _GenreChip extends StatelessWidget {
         color: Colors.white,
         fontWeight: FontWeight.w600,
         fontSize: compact ? 12 : null,
+      ),
+    ),
+  );
+}
+
+void _openSeatMap(BuildContext context, MovieDetailModel movie) {
+  Navigator.of(context).push(
+    MaterialPageRoute<void>(
+      builder: (_) => SeatMappingPage(
+        movieTitle: movie.title ?? movie.originalTitle ?? 'Movie',
       ),
     ),
   );

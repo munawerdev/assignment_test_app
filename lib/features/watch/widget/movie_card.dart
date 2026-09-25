@@ -54,7 +54,7 @@ class MovieCard extends StatelessWidget {
               left: 16.w,
               right: 16.w,
               child: Text(
-                result.originalTitle!,
+                result.title ?? result.originalTitle ?? 'Untitled',
                 style: context.textTheme.titleMedium?.copyWith(
                   color: Colors.white,
                   fontSize: landscape ? 14 : 18.sp,

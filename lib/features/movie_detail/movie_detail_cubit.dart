@@ -25,6 +25,7 @@ class MovieDetailCubit extends Cubit<MovieDetailState> {
       url: AppUrl.movieDetail(initialParams.result.id.toString()),
       queryParams: {'api_key': GlobalConstants.apiKey},
     );
+    if (isClosed) return;
     movieDetail.fold(
       (l) => emit(state.copyWith(response: ApiResponse.error(l))),
       ((r) => emit(
@@ -40,6 +41,7 @@ class MovieDetailCubit extends Cubit<MovieDetailState> {
       url: AppUrl.movieVideos(initialParams.result.id.toString()),
       queryParams: {'api_key': GlobalConstants.apiKey},
     );
+    if (isClosed) return;
     response.fold((_) => _showTrailerUnavailable(), (json) {
       final videos = (json['results'] as List<dynamic>? ?? const [])
           .whereType<Map<String, dynamic>>()

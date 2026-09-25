@@ -1,57 +1,42 @@
-# 🚀 Flutter Architecture
+# GYB Commerce Movie App
 
-A **Mason CLI brick** for generating Flutter projects with **Clean Architecture**. Built for scalability and production-ready applications.
+A Flutter movie discovery app built for the GYB Commerce assignment. It loads upcoming movies from TMDB, supports movie search and detail pages, plays available YouTube trailers, and includes a UI-only seat selector.
 
-## 📋 Version Information
+## Requirements
 
-- **Flutter**: 3.47.0
-- **Dart**: 3.13.0
-- **Java**: 25.0.3
+- Flutter stable 3.47.0 (Dart 3.13.0)
+- Android SDK / Xcode for the target platform
 
-## 🎯 Key Features
+## Run
 
-- ✅ **Clean Architecture** with Domain-Driven Design
-- ✅ **State Management** with Flutter Cubit
-- ✅ **Dependency Injection** with GetIt
-- ✅ **Network Layer** with Dio interceptors
-- ✅ **Local Storage** with SharedPreferences
-- ✅ **Responsive Design** with ScreenUtil
-- ✅ **UI Components** library
-- ✅ **Navigation** with custom transitions
-
-## 📁 Structure
-
-```
-lib/
-├── 📂 config/                    # Global configuration
-│   ├── 📂 navigation/           # Navigation setup and routing
-│   ├── 📂 response/             # API response handling
-│   └── 📂 theme/                # App theming
-├── 📂 core/                     # Core utilities and services
-│   ├── 📂 constants/            # Global constants
-│   ├── 📂 services/             # Core services
-│   ├── 📂 show/                 # Error handling and notifications
-│   ├── 📂 utils/                # Utility functions
-│   └── 📂 widgets/              # Reusable widgets library
-├── 📂 data/                     # Data layer (Repository Pattern)
-│   ├── 📂 datasources/          # Data sources (Remote/Local)
-│   ├── 📂 models/               # Data models
-│   └── 📂 repositories/         # Repository implementations
-├── 📂 domain/                   # Business logic layer
-│   ├── 📂 failures/             # Error handling
-│   ├── 📂 repositories/         # Repository interfaces
-│   └── 📂 usecases/             # Business use cases
-├── 📂 features/                 # Feature modules
-│   ├── 📂 auth/                 # Authentication feature
-│   └── 📂 home/      # Main feature
-├── injection_container.dart     # Dependency injection setup
-└── main.dart                     # Main application entry point
+```sh
+flutter pub get
+flutter run
 ```
 
-## 🤝 Contributing
+The app currently uses the TMDB API key in `lib/core/constants/global.dart`.
 
-1. Fork the repository (`https://github.com/munawerdev/mason_cli`)
-2. Create a feature branch (`git checkout -b feature/amazing-feature`)
-3. Commit your changes (`git commit -m 'Add amazing feature'`)
-4. Push to the branch (`git push origin feature/amazing-feature`)
-5. Open a Pull Request
+## Features
+
+- Upcoming movie list with pull to refresh
+- Search with popular movie suggestions and debounced results
+- Movie detail, genres, overview, and available trailer playback
+- Responsive portrait and landscape layouts
+- UI-only seat selection from **Get Tickets** (no booking service is connected)
+
+## Structure
+
+- `lib/features/`: feature-first UI and Cubit state management
+- `lib/data/models/`: TMDB response models
+- `lib/data/repositories/network/`: Dio network implementation and error handling
+- `lib/domain/`: network service interface and failure types
+- `lib/config/`: navigation, API response states, and theme
+
+Key packages: `flutter_bloc` for state management, `get_it` for dependency injection, `dio` for HTTP, `cached_network_image` for TMDB artwork, `flutter_screenutil` for responsive sizing, and `youtube_player_flutter` for trailer playback.
+
+## Build
+
+```sh
+flutter analyze
+flutter build apk --release
+```
