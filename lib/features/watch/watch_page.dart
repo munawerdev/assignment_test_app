@@ -30,7 +30,7 @@ class _WatchState extends State<WatchPage> {
 
   @override
   Widget build(BuildContext context) {
-    final landscape = MediaQuery.orientationOf(context) == Orientation.landscape;
+    final landscape = context.isLandscape;
     return Scaffold(
       body: RefreshIndicator.adaptive(
         onRefresh: cubit.watch,

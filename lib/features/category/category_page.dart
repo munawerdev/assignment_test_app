@@ -1,6 +1,7 @@
 import 'package:assignment_test_app/core/utils/extensions.dart';
 import 'package:assignment_test_app/core/widgets/app_text_form_field.dart';
 import 'package:assignment_test_app/core/widgets/cached_network_image_widget.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:material_ui/material_ui.dart';
 
@@ -32,7 +33,7 @@ class _CategoryState extends State<CategoryPage> {
 
   @override
   Widget build(BuildContext context) {
-    final landscape = MediaQuery.orientationOf(context) == Orientation.landscape;
+    final landscape = context.isLandscape;
     const categories = <_CategoryTileData>[
       _CategoryTileData('Comedies', 'https://picsum.photos/id/366/780/440'),
       _CategoryTileData(
@@ -70,6 +71,10 @@ class _CategoryState extends State<CategoryPage> {
             surfaceTintColor: Colors.transparent,
             scrolledUnderElevation: 0,
             elevation: 0,
+            systemOverlayStyle: const SystemUiOverlayStyle(
+              statusBarIconBrightness: Brightness.dark,
+              statusBarBrightness: Brightness.light,
+            ),
             titleSpacing: 0,
             title: Padding(
               padding: EdgeInsets.symmetric(horizontal: 20.w),
@@ -97,6 +102,8 @@ class _CategoryState extends State<CategoryPage> {
                               ),
                             )
                           : null,
+                      readOnly: true,
+                      onTap: () => cubit.goSearch(),
                       prefixIcon: Icon(
                         Icons.search_rounded,
                         color: const Color(0xff202C43),

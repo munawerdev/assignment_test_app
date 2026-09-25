@@ -67,7 +67,7 @@ class _MovieDetailContent extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final landscape = MediaQuery.orientationOf(context) == Orientation.landscape;
+    final landscape = context.isLandscape;
     if (landscape) {
       return Row(
         crossAxisAlignment: CrossAxisAlignment.stretch,

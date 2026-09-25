@@ -105,7 +105,7 @@ Future<void> init() async {
 */
   getIt.registerSingleton<SearchNavigator>(SearchNavigator(getIt()));
   getIt.registerFactoryParam<SearchCubit, SearchInitialParams, dynamic>(
-    (params, _) => SearchCubit(params, getIt(), getIt())..search(),
+    (params, _) => SearchCubit(params, getIt(), getIt()),
   );
 
   /*
@@ -113,6 +113,6 @@ Future<void> init() async {
 */
   getIt.registerSingleton<CategoryNavigator>(CategoryNavigator(getIt()));
   getIt.registerFactoryParam<CategoryCubit, CategoryInitialParams, dynamic>(
-    (params, _) => CategoryCubit(params, getIt(), getIt())..category(),
+    (params, _) => CategoryCubit(params, getIt(), getIt()),
   );
 }

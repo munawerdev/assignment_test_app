@@ -1,9 +1,6 @@
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:material_ui/material_ui.dart';
 
-import '/core/constants/status_switcher.dart';
 import 'search_cubit.dart';
-import 'search_state.dart';
 
 class SearchPage extends StatefulWidget {
   final SearchCubit cubit;
@@ -31,20 +28,6 @@ class _SearchState extends State<SearchPage> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: RefreshIndicator.adaptive(
-        onRefresh: cubit.search,
-        child: BlocBuilder(
-          bloc: cubit,
-          builder: (context, state) {
-            state as SearchState;
-            return state.response.toWidget(
-              onCompleted: (context, data) => const SizedBox(),
-              onRetry: () => cubit.search(showLoading: true),
-            );
-          },
-        ),
-      ),
-    );
+    return const Scaffold();
   }
 }
